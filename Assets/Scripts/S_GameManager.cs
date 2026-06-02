@@ -36,7 +36,7 @@ public class S_GameManager : MonoBehaviour
 
     private void HandleMove(Direction direction)
     {
-        // Si el juego ya terminó, no hacer nada
+        // If the game is already over, do nothing
         if (_gameOver)
             return;
 
@@ -48,7 +48,7 @@ public class S_GameManager : MonoBehaviour
         }
         else
         {
-            // Verificar GameOver si movimiento falla
+            // Check GameOver if movement fails
             if (!_gridManager.HasAvailableMoves())
             {
                 _scoreManager.UpdateRecord();
@@ -60,7 +60,7 @@ public class S_GameManager : MonoBehaviour
 
     private void HandleTileSpawned()
     {
-        // Verificar GameOver después de spawnear un nuevo tile
+        // Check GameOver after spawning a new tile
         if (!_gameOver && !_gridManager.HasAvailableMoves())
         {
             _scoreManager.UpdateRecord();
@@ -83,7 +83,7 @@ public class S_GameManager : MonoBehaviour
         CanvasGroup canvasGroup = _gameOverPanel.GetComponent<CanvasGroup>();
 
         canvasGroup.alpha = 0f;
-        float duration = 1f; // !!!ALERTA DE NUMERO MAGICO (1f)!!!
+        float duration = 1f; // !!!MAGIC NUMBER ALERT (1f)!!!
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)

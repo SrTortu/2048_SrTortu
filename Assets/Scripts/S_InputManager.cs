@@ -15,7 +15,7 @@ public class S_InputManager : MonoBehaviour
     public event System.Action OnNewGame;
 
     [SerializeField] private Button _newGameButton;
-    [SerializeField] private float _swipeThreshold = 50f; // Distancia mínima para registrar swipe
+    [SerializeField] private float _swipeThreshold = 50f; // Minimum distance to register swipe
 
     private Vector2 _touchStartPos;
     private Vector2 _touchEndPos;
@@ -45,7 +45,7 @@ public class S_InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
             OnMove?.Invoke(Direction.Left);
 
-        // ===================== Flechas de direccion =====================
+        // ===================== Direction arrows =====================
         if (Input.GetKeyDown(KeyCode.UpArrow))
             OnMove?.Invoke(Direction.Up);
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -58,7 +58,7 @@ public class S_InputManager : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        // Mouse o touch
+        // Mouse or touch
         if (Input.GetMouseButtonDown(0))
         {
             _touchStartPos = Input.mousePosition;
@@ -85,13 +85,13 @@ public class S_InputManager : MonoBehaviour
         if (swipeDistance < _swipeThreshold)
             return;
 
-        // Determinar dirección basada en el eje mayor
+        // Determine direction based on major axis
         float horizontalDistance = Mathf.Abs(swipeDelta.x);
         float verticalDistance = Mathf.Abs(swipeDelta.y);
 
         if (horizontalDistance > verticalDistance)
         {
-            // Swipe horizontal
+            // Horizontal swipe
             if (swipeDelta.x > 0)
                 OnMove?.Invoke(Direction.Right);
             else
@@ -99,7 +99,7 @@ public class S_InputManager : MonoBehaviour
         }
         else
         {
-            // Swipe vertical
+            // Vertical swipe
             if (swipeDelta.y > 0)
                 OnMove?.Invoke(Direction.Up);
             else

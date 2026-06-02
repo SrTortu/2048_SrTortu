@@ -55,7 +55,7 @@ public class S_TileAnimator : MonoBehaviour
         float halfDuration = duration / 2f;
         float elapsedTime = 0f;
 
-        // Expandir
+        // Expand
         while (elapsedTime < halfDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -65,7 +65,7 @@ public class S_TileAnimator : MonoBehaviour
             yield return null;
         }
 
-        // Contraer
+        // Contract
         elapsedTime = 0f;
         while (elapsedTime < halfDuration)
         {

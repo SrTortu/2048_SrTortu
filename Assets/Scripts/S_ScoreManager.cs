@@ -43,8 +43,8 @@ public class S_ScoreManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
-        scoreText.text = $"Puntuación: {score}";
-        recordText.text = $"Mejor: {highScore}"; 
+        scoreText.text = $"Score: {score}";
+        recordText.text = $"Best: {highScore}"; 
         
     }
     

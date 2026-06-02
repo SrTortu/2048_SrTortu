@@ -27,13 +27,13 @@ public class S_GridLogic : MonoBehaviour
 
     private void InitializeGrid()
     {
-        // Crea el array de tiles
+        // Creates the tile array
         int total = _gridUI.GridSize * _gridUI.GridSize;
         _tiles = new S_Tile[total];
         _freeIndexes = new List<int>(total);
         _mergedThisTurnCache = new bool[total];
 
-        // Crea la lista de índices libres
+        // Creates the list of free indexes
         for (int i = 0; i < total; i++)
             _freeIndexes.Add(i);
     }
@@ -47,7 +47,7 @@ public class S_GridLogic : MonoBehaviour
 
     private void ClearGrid()
     {
-        // Primero devolver todos los tiles al pool
+        // First, return all tiles to the pool
         for (int i = _gridUI.GridContainer.childCount - 1; i >= 0; i--)
         {
             Transform child = _gridUI.GridContainer.GetChild(i);
@@ -72,7 +72,7 @@ public class S_GridLogic : MonoBehaviour
 
     private IEnumerator SpawnAfterAnimation()
     {
-        yield return new WaitForSeconds(0.1f); // Esperar a que terminen las animaciones de movimiento
+        yield return new WaitForSeconds(0.1f); // Wait for movement animations to finish
         SpawnTile();
     }
 
@@ -82,13 +82,13 @@ public class S_GridLogic : MonoBehaviour
         Array.Clear(_mergedThisTurnCache, 0, _mergedThisTurnCache.Length);
         LastMergeValue = 0;
 
-        // Primero: mover todos los tiles
+        // First: move all tiles
         moved = MoveTiles(direction);
 
-        // Segundo: hacer los merges
+        // Second: do the merges
         bool merged = MergeTiles(direction, _mergedThisTurnCache);
 
-        // Tercero: mover nuevamente los tiles resultantes de los merges
+        // Third: move the tiles resulting from merges again
         if (merged)
         {
             moved = MoveTiles(direction) || moved;
@@ -117,7 +117,7 @@ public class S_GridLogic : MonoBehaviour
                 int targetIndex = i;
                 int nextIndex = GetNeighborIndex(targetIndex, direction);
 
-                // Encontrar la posición más lejana posible
+                // Find the farthest possible position
                 while (nextIndex >= 0 && nextIndex < _tiles.Length && _tiles[nextIndex] == null)
                 {
                     targetIndex = nextIndex;
@@ -195,9 +195,9 @@ public class S_GridLogic : MonoBehaviour
     }
 
 /*
- * Dependiendo de la dirección, los bucles de movimiento y merge deben recorrer el array de tiles
- * en un orden específico para asegurar que los merges se hagan correctamente. Con esta funcion obtengo los
- * parametros necesarios para cada dirección.
+ * Depending on the direction, the movement and merge loops must traverse the tile array
+ * in a specific order to ensure merges are done correctly. With this function I get the
+ * necessary parameters for each direction.
  */
     private void GetLoopParameters(Direction direction, out int startIndex, out int endIndex, out int step)
     {
@@ -232,7 +232,7 @@ public class S_GridLogic : MonoBehaviour
     }
 
     /*
-     * Se calcula el indice del vecino dependiendo de la dirección.
+     * Calculates the neighbor index depending on the direction.
      */
     private int GetNeighborIndex(int index, Direction direction)
     {
@@ -310,33 +310,33 @@ public class S_GridLogic : MonoBehaviour
 
     public bool HasAvailableMoves()
     {
-        // Si hay espacios vacíos, hay movimientos disponibles
+        // If there are empty spaces, there are available moves
         if (_freeIndexes.Count > 0)
             return true;
 
-        // Verificar si hay merges posibles
+        // Verify if there are possible merges
         for (int i = 0; i < _tiles.Length; i++)
         {
             if (_tiles[i] == null) continue;
 
             int currentValue = _tiles[i].GetValue();
 
-            // Verificar vecino arriba
+            // Verify neighbor above
             int upIndex = GetNeighborIndex(i, Direction.Up);
             if (upIndex >= 0 && _tiles[upIndex] != null && _tiles[upIndex].GetValue() == currentValue)
                 return true;
 
-            // Verificar vecino abajo
+            // Verify neighbor below
             int downIndex = GetNeighborIndex(i, Direction.Down);
             if (downIndex >= 0 && _tiles[downIndex] != null && _tiles[downIndex].GetValue() == currentValue)
                 return true;
 
-            // Verificar vecino izquierda
+            // Verify neighbor left
             int leftIndex = GetNeighborIndex(i, Direction.Left);
             if (leftIndex >= 0 && _tiles[leftIndex] != null && _tiles[leftIndex].GetValue() == currentValue)
                 return true;
 
-            // Verificar vecino derecha
+            // Verify neighbor right
             int rightIndex = GetNeighborIndex(i, Direction.Right);
             if (rightIndex >= 0 && _tiles[rightIndex] != null && _tiles[rightIndex].GetValue() == currentValue)
                 return true;

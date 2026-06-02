@@ -13,14 +13,14 @@ public class S_PoolManager : MonoBehaviour
     {
         _objectPool = new Queue<GameObject>();
 
-        // Crear contenedor para objetos en el pool
+        // Create container for pooled objects
         _poolContainer = new GameObject("PoolContainer").transform;
         _poolContainer.SetParent(transform, false);
 
         int gridSize = _gridManager.GridSize;
         int poolSize = gridSize * gridSize;
 
-        // Crea el pool de tiles
+        // Create the tile pool
         for (int i = 0; i < poolSize; i++)
         {
             GameObject tile =  Instantiate(_tilePrefab);

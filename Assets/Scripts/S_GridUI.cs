@@ -24,7 +24,7 @@ public class S_GridUI : MonoBehaviour
         CreateBackgroundCells(_gridSize * _gridSize);
     }
 
-    // Crea los fondos de las celdas libres
+    // Creates the backgrounds of free cells
     private void CreateBackgroundCells(int total)
     {
         for (int i = 0; i < total; i++)
@@ -33,7 +33,7 @@ public class S_GridUI : MonoBehaviour
             cellBg.transform.SetParent(_gridContainer, false);
 
             RectTransform rect = cellBg.AddComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(_cellSize - 5, _cellSize - 5); // -5px de margin
+            rect.sizeDelta = new Vector2(_cellSize - 5, _cellSize - 5); // -5px margin
             rect.anchoredPosition = GetTilePosition(i);
 
             Image image = cellBg.AddComponent<Image>();
@@ -41,7 +41,7 @@ public class S_GridUI : MonoBehaviour
         }
     }
 
-    // A partir del índice calcula la posición del tile de forma espacial [X,Y]
+    // From the index, calculates the tile position spatially [X,Y]
     public Vector2 GetTilePosition(int index)
     {
         int row = index / _gridSize;
@@ -55,7 +55,7 @@ public class S_GridUI : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    // En lugar de Awake, inicializo el grid en OnValidate para tener feedback visual rápido
+    // Instead of Awake, initialize the grid in OnValidate for quick visual feedback
     private void OnValidate()
     {
         if (_gridContainer != null)
