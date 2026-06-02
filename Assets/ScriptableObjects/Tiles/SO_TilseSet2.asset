@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5237b11b1c3021847ba1599e7b2eafdd, type: 3}
-  m_Name: Tile2
+  m_Name: SO_TilseSet2
   m_EditorClassIdentifier: 
-  value: 2
-  color: {r: 0.93333334, g: 0.89411765, b: 0.85490197, a: 1}
+  tileData:
+  - value: 2
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - value: 4
+    color: {r: 0.8113208, g: 0.5005696, b: 0.5005696, a: 1}

@@ -8,7 +8,7 @@ public class S_GridLogic : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private S_GridUI _gridUI;
-    [SerializeField] private SO_TileData[] _tileData;
+    [SerializeField] private S_TileData _tileSet;
     [SerializeField] private S_PoolManager _poolManager;
 
     public event Action OnTileSpawned;
@@ -152,12 +152,16 @@ public class S_GridLogic : MonoBehaviour
                     _tiles[neighborIndex].GetValue() == _tiles[i].GetValue() &&
                     !mergedThisTurnCache[neighborIndex])
                 {
-                    SO_TileData newData = _tileData[_tiles[i].GetIDataIndex() + 1];
-                    _tiles[neighborIndex].UpgradeData(newData);
-                    LastMergeValue += newData.value;
-                    _poolManager.ReturnToPool(_tiles[i].gameObject);
-                    _tiles[i] = null;
-                    mergedThisTurnCache[neighborIndex] = true;
+                    int newIndex = _tiles[i].GetIDataIndex() + 1;
+                    
+                    if (newIndex >= _tileSet.tileData.Count)
+                    {
+                        HandleMaxLevelMerge(i, neighborIndex);
+                    }
+                    else
+                    {
+                        HandleNormalMerge(i, neighborIndex, newIndex, mergedThisTurnCache);
+                    }
                     merged = true;
                 }
             }
@@ -169,6 +173,25 @@ public class S_GridLogic : MonoBehaviour
         }
 
         return merged;
+    }
+
+    private void HandleMaxLevelMerge(int tileIndex, int neighborIndex)
+    {
+        int lastValue = _tileSet.tileData[_tileSet.tileData.Count - 1].value;
+        LastMergeValue += lastValue * lastValue;
+        _poolManager.ReturnToPool(_tiles[tileIndex].gameObject);
+        _poolManager.ReturnToPool(_tiles[neighborIndex].gameObject);
+        _tiles[tileIndex] = null;
+        _tiles[neighborIndex] = null;
+    }
+
+    private void HandleNormalMerge(int tileIndex, int neighborIndex, int newIndex, bool[] mergedThisTurnCache)
+    {
+        _tiles[neighborIndex].UpgradeData(newIndex);
+        LastMergeValue += _tileSet.tileData[newIndex].value;
+        _poolManager.ReturnToPool(_tiles[tileIndex].gameObject);
+        _tiles[tileIndex] = null;
+        mergedThisTurnCache[neighborIndex] = true;
     }
 
 /*
@@ -267,7 +290,7 @@ public class S_GridLogic : MonoBehaviour
         tileRect.sizeDelta = new Vector2(_gridUI.CellSize, _gridUI.CellSize);
         tileRect.anchoredPosition = _gridUI.GetTilePosition(tileIndex);
 
-        newTile.Init(_tileData[dataIndex], dataIndex);
+        newTile.Init(_tileSet, dataIndex);
         _tiles[tileIndex] = newTile;
 
         newTile.AnimateSpawn();

@@ -10,13 +10,13 @@ public class S_Tile : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _valueText;
     [SerializeField] private S_TileAnimator _animator;
 
-    private SO_TileData _tileData;
+    private S_TileData _tileSet;
     private int _dataIndex;
     
 
-    public void Init(SO_TileData data, int dataIndex)
+    public void Init(S_TileData data, int dataIndex)
     {
-        _tileData = data;
+        _tileSet = data;
         _dataIndex = dataIndex;
         UpdateColor();
         UpdateText();
@@ -24,25 +24,24 @@ public class S_Tile : MonoBehaviour
 
     public void UpdateColor() 
     {
-        Color color = _tileData.color;
+        Color color = _tileSet.tileData[_dataIndex].color;
         _background.color = color;   
     }
     
     private void UpdateText()
     {
         if (_valueText != null)
-            _valueText.text = _tileData.value.ToString();
+            _valueText.text = _tileSet.tileData[_dataIndex].value.ToString();
     }
     
     public int GetValue()
     {
-        return _tileData.value;
+        return _tileSet.tileData[_dataIndex].value;
     }
     
-    public void UpgradeData(SO_TileData newData)
+    public void UpgradeData(int newIndex)
     {
-        _tileData = newData;
-        _dataIndex++;
+        _dataIndex = newIndex;
         UpdateColor();
         UpdateText();
         AnimateMerge();

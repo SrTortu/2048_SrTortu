@@ -47,10 +47,10 @@ public class S_GridUI : MonoBehaviour
         int row = index / _gridSize;
         int col = index % _gridSize;
 
-        float totalGridSize = _gridSize * _cellSize + (_gridSize - 1) * _spacing;
+        float totalGridSize = _gridSize * _cellSize + (_gridSize + 1) * _spacing;
 
-        float x = col * (_cellSize + _spacing) - totalGridSize / 2 + _cellSize / 2;
-        float y = -row * (_cellSize + _spacing) + totalGridSize / 2 - _cellSize / 2;
+        float x = col * (_cellSize + _spacing) + _spacing - totalGridSize / 2 + _cellSize / 2;
+        float y = -row * (_cellSize + _spacing) - _spacing + totalGridSize / 2 - _cellSize / 2;
 
         return new Vector2(x, y);
     }
@@ -60,7 +60,7 @@ public class S_GridUI : MonoBehaviour
     {
         if (_gridContainer != null)
         {
-            float total = _gridSize * _cellSize + (_gridSize - 1) * _spacing;
+            float total = _gridSize * _cellSize + (_gridSize + 1) * _spacing;
             float margin = 4f;
             _gridContainer.sizeDelta = new Vector2(total + margin, total + margin);
         }

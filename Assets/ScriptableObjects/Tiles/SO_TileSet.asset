@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5237b11b1c3021847ba1599e7b2eafdd, type: 3}
+  m_Name: SO_TileSet
+  m_EditorClassIdentifier: 
+  tileData:
+  - value: 2
+    color: {r: 0.93333334, g: 0.89411765, b: 0.85490197, a: 1}
+  - value: 4
+    color: {r: 0.92941177, g: 0.8784314, b: 0.78431374, a: 1}
+  - value: 8
+    color: {r: 0.9490196, g: 0.69411767, b: 0.4745098, a: 1}
+  - value: 16
+    color: {r: 0.9607843, g: 0.58431375, b: 0.3882353, a: 1}
+  - value: 32
+    color: {r: 0.9647059, g: 0.4862745, b: 0.37254903, a: 1}
+  - value: 64
+    color: {r: 0.9647059, g: 0.36862746, b: 0.23137255, a: 1}
+  - value: 128
+    color: {r: 0.92941177, g: 0.8117647, b: 0.44705883, a: 1}
+  - value: 256
+    color: {r: 0.89433956, g: 0.7483645, b: 0.27505153, a: 1}
+  - value: 512
+    color: {r: 0.93962264, g: 0.73113495, b: 0.05495901, a: 1}
+  - value: 1024
+    color: {r: 0.90943396, g: 0.8334589, b: 0.176739, a: 1}
+  - value: 2048
+    color: {r: 0.827952, g: 0.83396226, b: 0.067661025, a: 1}
+  - value: 4096
+    color: {r: 0.23529412, g: 0.22745098, b: 0.19607843, a: 1}

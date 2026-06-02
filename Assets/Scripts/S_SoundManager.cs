@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class S_SoundManager : MonoBehaviour
 {
     [SerializeField] private S_GridManager _gridManager;
+    [SerializeField] private Button _muteButton;
     
     [Header("Audio Clips")]
     [SerializeField] private AudioClip _mergeSound;
@@ -20,6 +22,10 @@ public class S_SoundManager : MonoBehaviour
             _gridManager.OnTileMerge += PlayMergeSound;
             _gridManager.OnTileSpawned += PlaySpawnSound;
         }
+        if (_muteButton != null)
+        {
+            _muteButton.onClick.AddListener(ToggleMute);
+        }
     }
 
     private void PlayMergeSound()
@@ -36,6 +42,11 @@ public class S_SoundManager : MonoBehaviour
         {
             _audioSource.PlayOneShot(_spawnSound, _volume);
         }
+    }
+    
+    private void ToggleMute()
+    {
+        _audioSource.mute = !_audioSource.mute;
     }
     
 }

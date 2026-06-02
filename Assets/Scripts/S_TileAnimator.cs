@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,25 +15,33 @@ public class S_TileAnimator : MonoBehaviour
 
     private static readonly AnimationCurve _linearCurve = AnimationCurve.Linear(0, 0, 1, 1);
     private RectTransform _rectTransform;
+    private Coroutine _moveCoroutine;
+    private Coroutine _spawnCoroutine;
+    private Coroutine _mergeCoroutine;
 
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     public void AnimateMerge()
     {
-        StartCoroutine(MergeCoroutine(_mergeDuration));
+       _mergeCoroutine = StartCoroutine(MergeCoroutine(_mergeDuration));
     }
 
     public void AnimateToPosition(Vector2 targetPosition)
     {
-        StartCoroutine(MoveToPositionCoroutine(targetPosition, _moveDuration));
+        _moveCoroutine = StartCoroutine(MoveToPositionCoroutine(targetPosition, _moveDuration));
     }
 
     public void AnimateSpawn()
     {
-        StartCoroutine(SpawnCoroutine(_spawnDuration));
+        _spawnCoroutine = StartCoroutine(SpawnCoroutine(_spawnDuration));
     }
 
     // =================== Merge Animation ===================
